@@ -13,8 +13,8 @@ CREATE TABLE USER2 (
 	user_id			varchar2(100)		NOT NULL,
 	membership_name	varchar2(20)		NOT NULL,
 	user_pw			varchar2(20)		NOT NULL,
-	user_nick		varchar2(100)		NOT NULL,
-	user_capacity	number				NOT NULL
+	age				number				NOT NULL,
+	gender			varchar2(100)		NOT NULL
 );
 
 CREATE TABLE VIDEO2 (

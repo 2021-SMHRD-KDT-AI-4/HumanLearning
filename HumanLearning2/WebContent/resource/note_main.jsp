@@ -1,3 +1,8 @@
+<%@page import="com.model.NoteListDTO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.model.NoteClassDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.NoteListDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -34,11 +39,30 @@
 	
 </head>
 <body>
-	
+	 <%
+ 
+ // String cocktail_id = URLDecoder.decode(request.getParameter("cocktail_id"), "euc-kr");
+ 
+ //System.out.println("cocktail_id"+cocktail_id);
+	//response.setContentType("text/html;");
+	NoteListDAO dao = new NoteListDAO();
+	ArrayList<NoteClassDTO> cinfo = new ArrayList<NoteClassDTO>();
+	String id = "a";
+	cinfo= dao.classlist(id);
+	HashMap<Integer,ArrayList<NoteListDTO>> map = new HashMap<Integer,ArrayList<NoteListDTO>>();
+	for(int i = 0; i<cinfo.size() ;i++){
+		ArrayList<NoteListDTO> ninfo = new ArrayList<NoteListDTO>();		
+		int class_id = cinfo.get(i).getClass_id();
+		ninfo = dao.notelist(id,class_id);	
+		System.out.println("upload : "+ninfo.get(0).getUpload_time());
+		map.put(class_id,ninfo);
+	}
+%>
+
 	<!--  네비바 시작 -->
     <div class="container">
       <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="row flex-nowrap justify-content-between align-items-center">s
           <div class="col-4 pt-1">
             <a href="./My_page.html"><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
           </div>
@@ -76,7 +100,7 @@
                     <legend>
                       <div class="card mb-3 row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
                       <div class="col p-4 d-flex flex-column position-static"  >
-                        <h3 class="card-header" style="font-family: 'Dovemayo Medium';">User님의 노트</h3>
+                        <h3 class="card-header" style="font-family: 'Dovemayo Medium';"><%= id %>님의 노트</h3>
                           <div class="card-body" style="margin-top: 3%;">
                           </div>
                           <div class="card-body">
@@ -87,11 +111,21 @@
                     </fieldset>
                 </form>
             </div>
+            
+            
+            <!-- 과목별 -->
+            <%for(int j = 0; j<cinfo.size(); j++) { 
+            	ArrayList<NoteListDTO> notes = new ArrayList<NoteListDTO>();
+           	 	notes = map.get(cinfo.get(j).getClass_id());
+            %>
+            
             <div class="accordion" id="accordionExample">
+            
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"style="font-family: 'Dovemayo Medium';">
-                        한능검
+                         <!-- 한능검, 과목 분류  -->
+                         <%= cinfo.get(j).getClass_name() %>
                       </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse">
@@ -106,133 +140,48 @@
                               </tr>
                             </thead>
                             <tbody>
+                            
+                            <%-- 
                               <tr class="table-warning">
-                                <th scope="row">한국사 노트1</th>
-                                <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                <td>21.07.31</td>
+                                <th scope="row"><!--노트이름  --> <%=ninfo.get(0).getVideo_id() %></th>
+                                <td><!--파일이름  --> <%=ninfo.get(0).getFile_name() %></td>
+                                <td><!--날짜  --> <%=ninfo.get(0).getUpload_time() %></td>
                                 <td><button class="btn rounded btn-outline-danger">X</button></td>
-                              </tr>
-                              <tr class="table-warning">
-                                <th scope="row">한국사 노트2</th>
-                                <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                <td>21.07.31</td>
-                                <td><button class="btn rounded btn-outline-danger">X</button></td>
-                              </tr>
-                              <tr class="table-warning">
-                                <th scope="row">한국사 노트3</th>
-                                <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                <td>21.07.31</td>
-                                <td><button class="btn rounded btn-outline-danger">X</button></td>
-                              </tr>
-                              <tr class="table-warning">
-                                <th scope="row">한국사 노트4</th>
-                                <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                <td>21.07.31</td>
-                                <td><button class="btn rounded btn-outline-danger">X</button></td>
-                              </tr>
+                              --%>
+                              
+                             <% for(int i=0;i<map.get(cinfo.get(j).getClass_id()).size();i++){ %>
+                            	 
+                            	                            
+	                              <tr class="table-warning">
+	                                <th scope="row"><!--노트이름  --> <%= notes.get(i).getVideo_id() %></th>
+	                                <td><!--파일이름  --> <%= notes.get(i).getVideo_filename() %> </td>
+	                                <td><!--날짜  --> <%= notes.get(i).getUpload_time() %></td>
+	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><button class="btn rounded btn-outline-danger">X</button></a></td> 
+	                            
+	                      <%       
+                            } %>
+                             
+                             
                             </tbody>
                           </table>
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-family: 'Dovemayo Medium';">
-                      한능검
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                        <table class="table table-hover" style="font-family: 'Dovemayo Medium';">
-                            <thead>
-                                <tr>
-                                  <th scope="col">노트 이름</th>
-                                  <th scope="col">강의 영상제목</th>
-                                  <th scope="col">노트 작성일</th>
-                                  <th scope="col">노트 삭제</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트1</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트2</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트3</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트4</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                              </tbody>
-                          </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"style="font-family: 'Dovemayo Medium';">
-                        한능검
-                      </button>
-                  </h2>
-                  <div id="collapseThree" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                        <table class="table table-hover" style="font-family: 'Dovemayo Medium';">
-                            <thead>
-                                <tr>
-                                  <th scope="col">노트 이름</th>
-                                  <th scope="col">강의 영상제목</th>
-                                  <th scope="col">노트 작성일</th>
-                                  <th scope="col">노트 삭제</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트1</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트2</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트3</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                                <tr class="table-warning">
-                                  <th scope="row">한국사 노트4</th>
-                                  <td>54회 한능검 D-7, 7일의 기적 ｜별★밤 1TV</td>
-                                  <td>21.07.31</td>
-                                  <td><button class="btn rounded btn-outline-danger">X</button></td>
-                                </tr>
-                              </tbody>
-                          </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    <%} %> 
+               
     </main>
 	
 </body>
+<script src="./js/jquery-3.6.0.min.js"></script> 
+<script type="text/javascript" src="js/bootstrap.js"></script> 
+<!-- <script>
+alert("click");
+</script>
+ -->
+<script type="text/javascript">
 
-<script src="js/bootstrap.js"></script>
+
+</script>
+
+
 </html>

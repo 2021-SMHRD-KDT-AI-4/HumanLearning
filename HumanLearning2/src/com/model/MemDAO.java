@@ -50,7 +50,7 @@ public class MemDAO {
 		
 		try {
 
-			String sql = "INSERT INTO USERS VALUES(?,1,?,?,?,?,?)";
+			String sql = "INSERT INTO USERS VALUES(?,'1',?,?,?,?,'')";
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, dto.getUSER_ID());

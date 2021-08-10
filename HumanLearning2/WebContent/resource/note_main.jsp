@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 <%@page import="com.NoteListDTO"%>
 
 <%@page import="java.util.HashMap"%>
 <%@page import="DTO.NoteClassDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.NoteListDAO"%>
+=======
+<%@page import="com.model.NoteListDTO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.model.NoteClassDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.NoteListDAO"%>
+>>>>>>> branch 'master' of https://github.com/2021-SMHRD-KDT-AI-4/HumanLearning.git
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -41,8 +49,11 @@
 </head>
 <body>
 	 <%
+<<<<<<< HEAD
 	 
 	 
+=======
+>>>>>>> branch 'master' of https://github.com/2021-SMHRD-KDT-AI-4/HumanLearning.git
  
  // String cocktail_id = URLDecoder.decode(request.getParameter("cocktail_id"), "euc-kr");
  
@@ -159,7 +170,11 @@
 	                                <th scope="row"><!--노트이름  --> <%= notes.get(i).getVideo_id() %></th>
 	                                <td><!--파일이름  --> <%= notes.get(i).getVideo_filename() %> </td>
 	                                <td><!--날짜  --> <%= notes.get(i).getUpload_time() %></td>
+<<<<<<< HEAD
 	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><img src="img/X.png"></a></td> 
+=======
+	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><button class="btn rounded btn-outline-danger">X</button></a></td> 
+>>>>>>> branch 'master' of https://github.com/2021-SMHRD-KDT-AI-4/HumanLearning.git
 	                            
 	                      <%       
                             } %>

@@ -64,22 +64,13 @@
     <!-- 네비바 종료 -->
 
     <main class="container">
-        <div id="video" style="position: relative; width: 100%; height: auto; padding-top: 50%">
+        <div id="video" style="position: relative; width: 100%; height: auto; padding-top: 50%; float: left;">
             <iframe src="./test/test.mp4" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
         </div>
 
         <br>
     
       <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary" style="font-family: 'Dovemayo Medium';">영상 스크립트</strong>
-              <div class="mb-1 text-muted">Nov 12</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
         <div class="col-md-6">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">

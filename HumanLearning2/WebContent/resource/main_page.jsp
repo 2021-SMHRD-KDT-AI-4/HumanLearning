@@ -276,6 +276,7 @@
 			  </div>
 			  <div class="col-auto d-none d-lg-block">
 				<div class="main-wrap">
+				
 				  <div class="main-day text-warning"></div>
 				  <div class="main-date text-warning"></div>
 	              </div>

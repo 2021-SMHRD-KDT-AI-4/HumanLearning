@@ -1,9 +1,9 @@
 <%@page import="com.model.MemDTO"%>
-<%@page import="com.model.NoteListDTO"%>
+<%@page import="com.NoteListDTO"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="com.model.NoteClassDTO"%>
+<%@page import="DTO.NoteClassDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.model.NoteListDAO"%>
+<%@page import="com.NoteListDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -84,7 +84,6 @@
     	 id = info.getUSER_ID();
      }
 
-    		
  
 	response.setContentType("text/html;");
 	NoteListDAO dao = new NoteListDAO();

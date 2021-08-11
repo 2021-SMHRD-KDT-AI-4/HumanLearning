@@ -1,3 +1,4 @@
+<%@page import="com.model.MemDTO"%>
 <%@page import="com.model.NoteListDTO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.model.NoteClassDTO"%>
@@ -29,6 +30,40 @@
           .btn-warning:hover{
             filter: brightness(0), invert(1);
           }
+          .nav_div{
+		       margin: auto; 
+		       display: inline;
+	       }
+	       .nav_icon{
+		       width: 40px; 
+		       height: 40px;
+	       }
+	       .nav_con_icon{
+		       align: center; 
+		       width: 40px; 
+		       height: 40px;
+	       }
+	       .main_logo{
+		        font-size: 20px; 
+		        font-family: 'Dovemayo-Medium';
+	       }
+	       .note_user{
+	       		font-family: 'Dovemayo Medium';
+	       }
+	       .user_box{
+	       		 font-family: 'Dovemayo Medium'; 
+	       		 width: 65%;
+	       }
+	       .new_note_btn{
+	       		 font-family: 'Dovemayo Medium';
+	       		 float: right;
+	       }
+	       .acc{
+	       		font-family: 'Dovemayo Medium';
+	       }
+	       .main_css{
+	       		margin-left: 25%;
+	      	}
         </style>
     
         
@@ -40,16 +75,23 @@
 </head>
 <body>
 	 <%
+	 String id;
+	 MemDTO info = (MemDTO)session.getAttribute("info");
+     if(info == null){
+    	 response.sendRedirect("u_login.jsp");
+    	 id  = "";
+     } else {
+    	 id = info.getUSER_ID();
+     }
+
+    		
  
- // String cocktail_id = URLDecoder.decode(request.getParameter("cocktail_id"), "euc-kr");
- 
- //System.out.println("cocktail_id"+cocktail_id);
-	//response.setContentType("text/html;");
+	response.setContentType("text/html;");
 	NoteListDAO dao = new NoteListDAO();
 	ArrayList<NoteClassDTO> cinfo = new ArrayList<NoteClassDTO>();
-	String id = "a";
-	cinfo= dao.classlist(id);
 	HashMap<Integer,ArrayList<NoteListDTO>> map = new HashMap<Integer,ArrayList<NoteListDTO>>();
+	cinfo= dao.classlist(id);
+	
 	for(int i = 0; i<cinfo.size() ;i++){
 		ArrayList<NoteListDTO> ninfo = new ArrayList<NoteListDTO>();		
 		int class_id = cinfo.get(i).getClass_id();
@@ -60,27 +102,41 @@
 %>
 
 	<!--  네비바 시작 -->
-    <div class="container">
+	<div class="container">
       <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">s
+        <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a href="./My_page.html"><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
+          <!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
+          <% if (info==null) {%>
+            <a type="button"  href="u_login.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
+            <%} else {%>
+            <a type="button" href="u_mypage.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
+            <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="./Main_page.html" style="font-size: 30px; font-family: 'Dovemayo Medium';">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-outline-secondary" href="./Login_page.html">Sign up</a>
+            <a class="link-secondary" href="#" aria-label="Search">
+              <!-- <img src = "./icon/dot_B.png" style="width: 25px; height: 25px; margin-right: 20px;"> -->
+            </a>
+            <form>
+            <% if (info==null) {%>
+            <a class="btn btn-sm btn-outline-secondary" href="u_login.jsp">Login</a>
+            <%} else if (info!= null){%>
+            <a class="btn btn-sm btn-outline-secondary" href="../Logoutserv" >Logout</a>
+            <%} %>
+            </form>
           </div>
         </div>
       </header>
     
       <div class="nav-scroller py-1 mb-2">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div style="margin: auto; display: inline;"><a href="./Main_page.html"><img src="./icon/home.png" style="width: 40px; height: 40px;"></a></div>
-            <div style="margin: auto; display: inline;"><a href="./Note_List_Page.html"><img src="./icon/doc.png" style="width: 40px; height: 40px;"></a></div>
-            <div style="margin: auto; display: inline;"><a href=""><img src="./icon/cal.png" style="width: 40px; height: 40px;"></a></div>
-            <div style="margin: auto; display: inline;"><a href="./Community_page.html"><img src="./icon/com.png" style="width: 40px; height: 40px;"></a></div>
+          <div class="nav_div"><a href="main_page.jsp"><img class="nav_icon" src="./icon/home.png" ></a></div>
+          <div class="nav_div"><a href="note_main.jsp"><img class="nav_icon" src="./icon/doc.png"></a></div>
+          <div class="nav_div"><a href="calendar.jsp"><img class="nav_icon" src="./icon/cal.png"></a></div>
+          <div class="nav_div"><a href="community_main.jsp"><img class="nav_icon" src="./icon/com.png"></a></div>
         </nav>
       </div>
     </div>
@@ -91,26 +147,25 @@
     <br>
     <br>
 
-    <main style="  margin-left: 25%;">
+    <main class="main_css">
 
-        <div id="" style="font-family: 'Dovemayo Medium'; width: 65%;">
+        <div class="user_box">
             <div>
                 <form>
                     <fieldset>
                     <legend>
                       <div class="card mb-3 row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
                       <div class="col p-4 d-flex flex-column position-static"  >
-                        <h3 class="card-header" style="font-family: 'Dovemayo Medium';"><%= id %>님의 노트</h3>
-                          <div class="card-body" style="margin-top: 3%;">
-                          </div>
-                          <div class="card-body">
-                          </div>
-                        </div>
-                        </div>
+	                        <h3 class="card-header note_user"> <%= id %>  님의 노트
+	                        <input class="btn btn-warning new_note_btn" onclick="location.href='note_upload.jsp'" type="button" value="새노트 만들기"> 
+	                        </h3>
+                      </div>
+                      </div>
                     </legend>
                     </fieldset>
                 </form>
             </div>
+         
             
             
             <!-- 과목별 -->
@@ -120,17 +175,16 @@
             %>
             
             <div class="accordion" id="accordionExample">
-            
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"style="font-family: 'Dovemayo Medium';">
+                    <button class="accordion-button collapsed acc" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                          <!-- 한능검, 과목 분류  -->
                          <%= cinfo.get(j).getClass_name() %>
                       </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <table class="table table-hover" style="font-family: 'Dovemayo Medium';">
+                        <table class="table table-hover acc">
                             <thead>
                               <tr>
                                 <th scope="col">노트 이름</th>
@@ -140,33 +194,23 @@
                               </tr>
                             </thead>
                             <tbody>
-                            
-                            <%-- 
-                              <tr class="table-warning">
-                                <th scope="row"><!--노트이름  --> <%=ninfo.get(0).getVideo_id() %></th>
-                                <td><!--파일이름  --> <%=ninfo.get(0).getFile_name() %></td>
-                                <td><!--날짜  --> <%=ninfo.get(0).getUpload_time() %></td>
-                                <td><button class="btn rounded btn-outline-danger">X</button></td>
-                              --%>
-                              
+
                              <% for(int i=0;i<map.get(cinfo.get(j).getClass_id()).size();i++){ %>
-                            	 
-                            	                            
+                            	     
 	                              <tr class="table-warning">
 	                                <th scope="row"><!--노트이름  --> <%= notes.get(i).getVideo_id() %></th>
 	                                <td><!--파일이름  --> <%= notes.get(i).getVideo_filename() %> </td>
 	                                <td><!--날짜  --> <%= notes.get(i).getUpload_time() %></td>
 	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><button class="btn rounded btn-outline-danger">X</button></a></td> 
-	                            
 	                      <%       
                             } %>
-                             
-                             
                             </tbody>
                           </table>
                     </div>
                   </div>
                 </div>
+                </div>
+                
                     <%} %> 
                
     </main>

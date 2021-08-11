@@ -30,7 +30,7 @@ public class Loginserv extends HttpServlet {
 			session.setAttribute("info", info);
 			System.out.println("로그인 성공");
 			System.out.println(id+pw);
-			System.out.println(info.getMEMBERSHIP_ID());
+			System.out.println(info.getMEMBERSHIP_NAME());
 			System.out.println(info.getUSER_NAME());
 			System.out.println(info.getUSER_AGE());
 			System.out.println(info.getUSER_GENDER());

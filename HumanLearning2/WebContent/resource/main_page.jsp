@@ -87,6 +87,61 @@
            height: 100%;
            object-fit: cover;
        }
+       .cal_st, .note{
+	       font-family:Dovemayo-Bold; 
+	       font-size: 35px;
+       }
+       .cal_icon, .note_icon{
+	       width: 50px; 
+	       height: 50px;
+       }
+       .cal_div, .cal_table, .note_edit, .s1-1, .ca{
+       font-family: Dovemayo-Medium !important;
+       }
+       .add_icon{
+        margin-top: 40px; 
+        margin-bottom: 40px; 
+        margin-right: 40px; 
+        width: 200px;
+        height: 200px;
+       }
+       .note_upload{
+       padding-left:30px; 
+       font-family: Dovemayo-Mideum; 
+       font-size: 20px;
+       }
+       .main_info{
+        font-family: Dovemayo-Mideum; 
+        font-size:25px;
+       }
+       .s1, .s3{
+        position: relative;
+       }
+       .swip_wrap{
+       padding-top: 70px;
+       }
+       .swip_con{
+       position: relative; 
+       height: 100%; 
+       min-height: 500px;
+       }
+       .nav_div{
+       margin: auto; 
+       display: inline;
+       }
+       .nav_icon{
+       width: 40px; 
+       height: 40px;
+       }
+       .nav_con_icon{
+       align: center; 
+       width: 40px; 
+       height: 40px;
+       }
+       .main_logo{
+        font-size: 20px; 
+        font-family: 'Dovemayo-Medium';
+       }
 
    </style>
    <!-- Custom styles for this template -->
@@ -110,13 +165,13 @@
           <div class="col-4 pt-1">
           <!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
           <% if (info==null) {%>
-            <a type="button"  href="u_login.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
+            <a type="button"  href="u_login.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} else {%>
-            <a type="button" href="u_mypage.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;" ></a>
+            <a type="button" href="u_mypage.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="main_page.jsp" style="font-size: 20px; font-family: 'Dovemayo-Medium';">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -135,24 +190,23 @@
     
       <div class="nav-scroller py-1 mb-2">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div style="margin: auto; display: inline;"><a href="main_page.jsp"><img src="./icon/home.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="note_main.jsp"><img src="./icon/doc.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="calendar.jsp"><img src="./icon/cal.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="community_main.jsp"><img src="./icon/com.png" style="width: 40px; height: 40px;"></a></div>
+          <div class="nav_div"><a href="main_page.jsp"><img class="nav_icon" src="./icon/home.png" ></a></div>
+          <div class="nav_div"><a href="note_main.jsp"><img class="nav_icon" src="./icon/doc.png"></a></div>
+          <div class="nav_div"><a href="calendar.jsp"><img class="nav_icon" src="./icon/cal.png"></a></div>
+          <div class="nav_div"><a href="community_main.jsp"><img class="nav_icon" src="./icon/com.png"></a></div>
         </nav>
       </div>
     </div>
     
 	<main class="container">
-		<div class="swiper-container mySwiper" 
-			style="position: relative; height: 100%; min-height: 500px;">
+		<div class="swiper-container mySwiper swip_con">
       
-	      <div class="swiper-wrapper" style="padding-top: 70px;">
+	      <div class="swiper-wrapper swip_wrap" >
 	        <!-- ###슬라이드1 -->
 	        <div class="swiper-slide">
-	          <div class="col-md-6 px-0" style="position: relative;">
+	          <div class="col-md-6 px-0 s1">
 	            <h1 class="display-4 fst-italic">Welcome to NeogaSseoBa Note</h1><br>
-	            <p class="lead my-3" style="font-family: 'Dovemayo-Medium;'">너가써봐 노트는 업로드된 영상의 음성을 추출하여 텍스트로 변환해주는 프로그램 입니다.
+	            <p class="lead my-3 s1-1">너가써봐 노트는 업로드된 영상의 음성을 추출하여 텍스트로 변환해주는 프로그램 입니다.
 	            	<br>변환된 텍스트로 나만의 노트를 간편히 작성해봐요!
 	            </p>
 	            <p class="lead mb-0" ><a href="note_upload.jsp" class="text-dark fw-bold"> Please press the Addnote!</a></p>
@@ -164,10 +218,10 @@
 	        </div>
 	        <!-- ###슬라이드3 -->
 	        <div class="swiper-slide">
-	          <div class="col-md-6 px-0" style="position: relative;">
+	          <div class="col-md-6 px-0 s3">
 	            <h1 class="display-4 fst-italic">- Contact -</h1>
 	            <br>
-	            <p class="lead" style="font-family: Dovemayo-Mideum; font-size:25px;">Should you have any questions, <br>please do not hesitate to contact me!</p>
+	            <p class="lead main_info">Should you have any questions, <br>please do not hesitate to contact me!</p>
 	            <br>
 	            <h1>smhrdS2@gmail.com</h1>
 	            <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
@@ -207,11 +261,11 @@
 		  <div class="col-md-6">
 			<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative font-family: 'Dovemayo-Medium';">
 			  <div class="col p-4 d-flex flex-column position-static">
-				<a href = "calendar.jsp"><strong class="d-inline-block mb-2 text-primary" style="font-family:Dovemayo-Bold; font-size: 35px;"><img src="./icon/cal_B.png" style="width: 50px; height: 50px;"> Today Event</strong></a>
+				<a href = "calendar.jsp"><strong class="d-inline-block mb-2 text-primary cal_st"><img class="cal_icon" src="./icon/cal_B.png"> Today Event</strong></a>
 	              <hr>  
-				  <div style="font-family: Dovemayo-Medium !important">
+				  <div class="cal_div">
 				  
-	                <table style="font-family: Dovemayo-Medium !important">
+	                <table class="cal_table">
 					<%for(int i = 0; i< cInput.size(); i++){%>
 							<tr><td><%=i+1+". " %><%=cInput.get(i).getCal_comment() %></td></tr>
 						 <%} %>
@@ -231,18 +285,18 @@
 		  <div class="col-md-6" >
 			<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 			  <div class="col p-4 d-flex flex-column position-static">
-				<a href = "note_upload.jsp"><strong class="d-inline-block mb-2 text-warning" style="font-family:'Dovemayo-Bold'; font-size: 35px;"><img src="./icon/plus_Y2.png" style="width: 50px; height: 50px;"> Add note</strong></a>
+				<a href = "note_upload.jsp"><strong class="d-inline-block mb-2 text-warning note"><img class="note_icon" src="./icon/plus_Y2.png"> Add note</strong></a>
 				<hr >
-				<div style="padding-left:30px; font-family: Dovemayo-Mideum; font-size: 20px;">  
+				<div class="note_upload">  
 				  <h3 class="mb-0">1. Upload Video</h3>
-				  <div class="mb-auto">　영상을 업로드하고</div>
+				  <div class="mb-auto ca">　영상을 업로드하고</div>
 				  <br>
 				  <h3 class="mb-0">2. Edit Note</h3>
-				  <p class="mb-auto" style="font-family: 'Dovemayo-Medium'">　노트를 수정합니다.!</p>
+				  <p class="mb-auto note_edit ca">　노트를 수정합니다.!</p>
 			  	</div>
 			  </div>
 			  <div class="col-auto d-none d-lg-block">
-				<img class="bd-placeholder-img" src="./icon/add2.png" style="margin-top: 40px; margin-bottom: 40px; margin-right: 40px; width: 200px; height: 200px;">
+				<img class="bd-placeholder-img add_icon" src="./icon/add2.png">
 			  </div>
 			</div>
 		  </div>

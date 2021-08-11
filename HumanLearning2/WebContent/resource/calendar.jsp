@@ -1,3 +1,8 @@
+0<%@page import="com.model.CalDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.CalDAO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="com.model.MemDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -32,7 +37,46 @@
 		}
 		.btn-warning:hover{
 			filter: brightness(0), invert(1);
-		}
+		} .input-form .input-box {
+        width: 90%;
+        height: 50px;
+        font-size: 20px;
+        border: 0;
+        border-bottom: 2px dashed rgb(255, 184, 45);/* rgb(255, 82, 195)*/
+        margin-bottom: 30px;
+        outline-style: none;
+      }
+      
+      table > td{
+         min-width: 12rem;
+         max-width: 19rem;
+      }
+      
+      tr > td > div{
+         
+         min-height: 20rem; 
+         margin: 0.5rem;
+      }
+      .nav_div{
+       margin: auto; 
+       display: inline;
+       }
+       .nav_icon{
+       width: 40px; 
+       height: 40px;
+       }
+       .nav_con_icon{
+       align: center; 
+       width: 40px; 
+       height: 40px;
+       }
+       .main_logo{
+        font-size: 20px; 
+        font-family: 'Dovemayo-Medium';
+       }
+
+      
+		
 	</style>
     
         
@@ -44,153 +88,255 @@
 
 
 <body>
-	<%
-		MemDTO info = (MemDTO)session.getAttribute("info");
-		
-	%>
-	<div class="container" >
-	  <header class="blog-header py-3" >
-		<div class="row flex-nowrap justify-content-between align-items-center">
-		  <div class="col-4 pt-1" style="">
-			<!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
-	        <%if (info==null) {%>
-	          <a type="button"  href="u_login.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
-	        <%} else {%>
-	          <a type="button" href="u_mypage.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;" ></a>
-	        <%} %>
-		  </div>
-		  <div style="width: 80%; min-width: 30%;"></div>
-		  <div class="col-4 text-center" style="width: 100%;">
-			<a class="blog-header-logo text-dark" href="main_page.jsp" style="font-size: 30px; font-family: 'Dovemayo Medium';">니가써봐</a>
-		  </div>
-		  <div style="width: 80%; min-width: 30%;"></div>
-		  <div class="col-4 d-flex justify-content-end align-items-center">
-			<a class="link-secondary" href="#" aria-label="Search">
-			  <img src = "./icon/dot_B.png" style="width: 25px; height: 25px; margin-right: 20px;">
-			</a>
-			<form>
-            <%if (info==null) {%>
+   <%
+      MemDTO info = (MemDTO)session.getAttribute("info");
+      CalDAO dao = new CalDAO();
+      String s_user_id = info.getUSER_ID();
+      System.out.println(s_user_id+"**************************************");
+      
+      ArrayList<CalDTO> cal_list = dao.cal_please(s_user_id);
+      
+   %>
+	<div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+          <!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
+          <% if (info==null) {%>
+            <a type="button"  href="u_login.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
+            <%} else {%>
+            <a type="button" href="u_mypage.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
+            <%} %>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            <a class="link-secondary" href="#" aria-label="Search">
+              <!-- <img src = "./icon/dot_B.png" style="width: 25px; height: 25px; margin-right: 20px;"> -->
+            </a>
+            <form>
+            <% if (info==null) {%>
             <a class="btn btn-sm btn-outline-secondary" href="u_login.jsp">Login</a>
             <%} else if (info!= null){%>
             <a class="btn btn-sm btn-outline-secondary" href="../Logoutserv" >Logout</a>
             <%} %>
             </form>
-		  </div>
-		</div>
-	  </header>
-       
-	  <div class="nav-scroller py-1 mb-2">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div style="margin: auto; display: inline;"><a href="main_page.jsp"><img src="./icon/home.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="note_main.jsp"><img src="./icon/doc.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="calendar.jsp"><img src="./icon/cal.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="community_main.jsp"><img src="./icon/com.png" style="width: 40px; height: 40px;"></a></div>
+          </div>
+        </div>
+      </header>
+    
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="nav_div"><a href="main_page.jsp"><img class="nav_icon" src="./icon/home.png" ></a></div>
+          <div class="nav_div"><a href="note_main.jsp"><img class="nav_icon" src="./icon/doc.png"></a></div>
+          <div class="nav_div"><a href="calendar.jsp"><img class="nav_icon" src="./icon/cal.png"></a></div>
+          <div class="nav_div"><a href="community_main.jsp"><img class="nav_icon" src="./icon/com.png"></a></div>
         </nav>
-	  </div>
-	</div>
-	
-	<main class="container" >
-	  <div class="p-4 p-md-5 mb-4 text-black rounded bg-white" style="height: auto; min-height: 700px; min-width: 900px;background-size:cover;">
-		<div class="col-md-6 px-0" style="position:absolute; margin-left: auto; margin-right: auto; min-width: 500px">
-		  <header>
-			<h1 style="font-size: 10px; color: red;">
-				
+      </div>
+    </div>
+   
+   <%
+      //Date date = new Date();
+      //SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+      //String today = simpleDate.format(date);
+      Calendar cal = Calendar.getInstance();
+      String format = "yyyy-MM-dd";
+      SimpleDateFormat sdf = new SimpleDateFormat(format);
+      
+      
+      
+      String date1 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date2 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date3 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date4 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date5 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date6 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String date7 = sdf.format(cal.getTime());
+      cal.add(cal.DATE, +1);
+      
+      String[] com_list1 = new String[6];
+      String[] com_list2 = new String[6];
+      String[] com_list3 = new String[6];
+      String[] com_list4 = new String[6];
+      String[] com_list5 = new String[6];
+      String[] com_list6 = new String[6];
+      String[] com_list7 = new String[6];
 
-			</h1>
-			<div class="calendar_title ">
-			  <button class="prev">&#60;</button>
-			  <span class="current-year-month text-warning"></span>
-			  <button class="next">&#62;</button>
-			</div>
-		  </header>
-		  <section class="content-left">
-			<div class="left-main">
-				<div class="main-wrap">
-				  <div class="main-day text-warning"></div>
-				  <div class="main-date text-warning"></div>
-				</div>
-				<div class="todo-wrap">
-				  <div class="todo-title">Todo List</div>
-				  
-				  
-				    <form class="input-form" action="../Calinserv" method="post">
-					  <input type = "text" name="cal_comment" class="input-box" placeholder="일정 추가" style="font-family:'Dovemayo Medium'; min-width: 80px;">
-					  <input type = "text" name="cal_date" class = "input-box" placeholder="yyyymmdd" style="font-family:'Dovemayo Medium'; min-width: 80px;">
-						  
-					  <p>　</p>
-					  <input type="submit" name="넘어가라" value="INPUT" > 
-			  		</form>
-				</div>				  
-			  <ul class="todoList"></ul>
-			  <div class="showList">
-				<span class="listText"></span>
-				<span class="createDate"></span>
-				<button class="closed">close</button>
-			  </div>
-			  <div class="bgblack"></div>
-			  
-			</div>
-		  </section>
-		  <section class="content-right">
-			<div class="day-of-week text-white bg-primary mb-3">
-			  <div class="dayHeader text-danger">Sun</div>
-			  <div class="dayHeader">Mon</div>
-			  <div class="dayHeader">Tue</div>
-			  <div class="dayHeader">Wed</div>
-			  <div class="dayHeader">Thu</div>
-			  <div class="dayHeader">Fri</div>
-			  <div class="dayHeader text-info">Sat</div>
-			</div>
-			<div class="calendar-body">
-			  <!-- <script src = "js/main.js">
-				  	// todolist가 비어있는지 확인
-					var spanEl = document.getElementById('spanEl'); // todolist 선언
-					var dateEl = document.getElementById('dateEl'); // 달력 칸 선언
-	                      
-					if (spanEl !== null) {
-						dateEl += "*"; // 이렇게 지정하는게 맞나?
-					}
-	                      
-					/*
-					function isNull(spanEl) {
-						// todolist가 비어있으면 false, 비어있지 않으면 true
-						return(spanEl == null || spanEl != null) ? false : true;
-					}
-					if (spanE1 == true) {
-						// todolist가 비어있지 않다면(true) 달력 위에 뭔갈 표시할 속셈임
-						dateEl += "*"; // 이렇게 지정하는게 맞나?
-					}
-					*/
-			  </script> -->
-			</div>
-		  </section>
-		</div>
-	  </div>    
-	  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	 <!--  <script type="text/javascript">
-		  $(window).load(function(){
-		  	$(".check").click(function(){
-		  		var result = $(this).attr('id');
-		  		//alert(result);
-		  		//document.ex_form.target_name.value = result;
-		  	});
-		  });
-		  
-		  $(document).ready(function() {
-		         $("#target").val(result)
+      for(int i = 0; i < cal_list.size(); i++){
+         if(cal_list.get(i).getCal_date().equals(date1)){
+            com_list1[i] = (String)cal_list.get(i).getCal_comment();
+         }
+         if(cal_list.get(i).getCal_date() == date2){
+            com_list2[i] = cal_list.get(i).getCal_comment();
+         }
+         if(cal_list.get(i).getCal_date() == date3){
+            com_list3[i] = cal_list.get(i).getCal_comment();
+            
+         }
+         if(cal_list.get(i).getCal_date() == date4){
+            com_list4[i] = cal_list.get(i).getCal_comment();
+            
+         }
+         if(cal_list.get(i).getCal_date() == date5){
+            com_list5[i] = cal_list.get(i).getCal_comment();
+            
+         }
+         if(cal_list.get(i).getCal_date() == date6){
+            com_list6[i] = cal_list.get(i).getCal_comment();
+            
+         }
+         if(cal_list.get(i).getCal_date() == date7){
+            com_list7[i] = cal_list.get(i).getCal_comment();
+         }
+      }
+   
+   %>
 
-		  });
-	  		
-		  /* 날짜 스플릿 기능
-		  var String = result;
-		  var Split = String.split( '-', 3 );
-		  
-		  for ( var i in Split ) {
-			  // 여기서 db에 저장 insert into 
-		    document.write( '<p>' + Split[i] + '</p>' );
-		  }
-	  	  */
-	  </script> -->
-	</main>
+
+   <main class="container" >
+     <table>
+        <tr>
+          <td style=""> <!-- todolist 작성 카드 -->
+             <div class="card border-warning mb-3" style="min-width: 14rem; max-width: 19rem; ">
+             <div class="card-header" style="color: #FFAF0A;"><img class="bd-placeholder-img" src="./icon/plus_Y3.png" style="width: 25px; height: 25px;">  Add List </div>
+             <div class="card-body">
+             <form class="input-form" action="../Calinserv" method="post">
+              <input type = "text" name="cal_comment" class="input-box" placeholder="todoList" style="font-family:'Dovemayo Medium'; ">
+              <input type = "text" name="cal_date" class = "input-box" placeholder="yyyymmdd" style="font-family:'Dovemayo Medium'; ">
+              <input type="submit" name="넘어가라" value="INPUT" class="btn btn-warning"> 
+             </form>
+             </div>
+         </div>
+          </td>
+          <td> <!-- 오늘 todolist -->
+             <div class="card border-primary mb-3" style="min-width: 14rem; max-width: 19rem;">
+             <div class="card-header bg-warning"><%=date1 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list1.length; i++){%>
+                  <tr>
+                    <td><%="- " %><%=com_list1[i]%></td>
+                    
+                  </tr>
+               <%} %>
+                 </table>
+                 
+             </p>
+             </div>
+         </div>
+          </td>
+          <td>
+             <div class="card border-primary mb-3" style="min-width: 14rem; max-width: 19rem; ">
+             <div class="card-header"><%= date2 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list2.length; i++){%>
+                  <tr><td><%="- " %><%=com_list2[i] %></td></tr>
+               <%} %>
+                 </table>
+                 
+             </p>
+             </div>
+         </div>
+          </td>
+          <td>
+             <div class="card border-primary mb-3" style="min-width: 14rem; max-width: 19rem; ">
+             <div class="card-header"><%=date3 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list3.length; i++){%>
+                  <tr><td><%="- " %><%=com_list3[i] %></td></tr>
+               <%} %>
+                 </table>
+               <!-- 칸 맞춤을 위한 공백 　　　　　　　　　　　　　　--><!-- 여기까지 -->
+             </p>
+             </div>
+         </div>
+          </td>
+        </tr>
+        
+        <!-- 38선 -->
+        
+        <tr>
+          <td>
+             <div class="card border-primary mb-3" >
+             <div class="card-header"><%=date4 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list4.length; i++){%>
+                  <tr><td><%="- " %><%=com_list4[i]%></td></tr>
+               <%} %>
+                 </table>
+             </p>
+             </div>
+         </div>
+          </td>
+          <td>
+             <div class="card border-primary mb-3" >
+             <div class="card-header"><%=date5 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list5.length; i++){%>
+                  <tr><td><%="- " %><%=com_list5[i]%></td></tr>
+               <%} %>
+                 </table>
+             </p>
+             </div>
+         </div>
+          </td>
+          <td>
+             <div class="card border-primary mb-3" >
+             <div class="card-header"><%=date6 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list6.length; i++){%>
+                  <tr><td><%="- " %><%=com_list6[i] %></td></tr>
+               <%} %>
+                 </table>
+             </p>
+             </div>
+         </div>
+          </td>
+          <td>
+             <div class="card border-primary mb-3" >
+             <div class="card-header"><%=date7 %></div>
+             <div class="card-body">
+             <p class="card-text">
+               <table style="font-family: Dovemayo-Medium !important">
+               <%for(int i = 0; i< com_list7.length; i++){%>
+                  <tr><td><%="- " %><%=com_list7[i] %></td></tr>
+               <%} %>
+                 </table>
+             </p>
+             </div>
+         </div>
+          </td>
+        </tr>
+        
+     </table>
+     
+     
+     
+   </main>
 </body>
+
 </html>

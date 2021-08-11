@@ -23,7 +23,7 @@ public class CalDAO {
 
 			conn = DriverManager.getConnection(durl, did, dpw);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();                                          
 		}
 	}
 
@@ -42,6 +42,42 @@ public class CalDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<CalDTO> cal_please(String s_user_id){
+	      ArrayList<CalDTO> cal_ci_list = new ArrayList<CalDTO>();
+	      
+	      getConnection();
+	      
+	      String sql = "select cal_comment, cal_date from CALENDARS where user_id = ? order by CAL_DATE asc";
+
+
+	      try {
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, s_user_id);
+	         rs = psmt.executeQuery();
+	         
+	         while (rs.next()) {
+	            
+	            String cal_comment = rs.getString("cal_comment");
+	            String cal_date = rs.getString("cal_date");
+	            
+	            CalDTO dto = new CalDTO(cal_comment,cal_date);
+	            cal_ci_list.add(dto);   
+	         }
+	         
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         getClose();
+	      }
+	      
+	      return cal_ci_list;
+	      
+
+	      
+	   }
+
 
 	public int calInput(CalDTO dto) {
 

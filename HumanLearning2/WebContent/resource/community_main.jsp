@@ -1,7 +1,7 @@
+<%@page import="com.model.CommunityDAO"%>
 <%@page import="com.model.MemDTO"%>
 <%@page import="com.model.CommunityDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.model.CommunityDAO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -29,6 +29,25 @@
 	  	.btn-warning:hover{
 			filter: brightness(0), invert(1);
 	  	}
+	  	.nav_div{
+	       margin: auto; 
+	       display: inline;
+       }
+       .nav_icon{
+	       width: 40px; 
+	       height: 40px;
+       }
+       .nav_con_icon{
+	       align: center; 
+	       width: 40px; 
+	       height: 40px;
+       }
+       .main_logo{
+	        font-size: 20px; 
+	        font-family: 'Dovemayo-Medium';
+       }
+
+	  	
 	</style>
 	
 	<!-- Custom styles for this template -->
@@ -41,22 +60,24 @@
 
 <body>
 	<!-- 로그인 정보 세션 저장 08.03 (조찬호)-->
-   <%
-      MemDTO info = (MemDTO)session.getAttribute("info");
-   %>
-   <div class="container">
+	<%
+		MemDTO info = (MemDTO)session.getAttribute("info");
+			
+			
+	%>
+	<div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
           <!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
           <% if (info==null) {%>
-            <a type="button"  href="u_login.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
+            <a type="button"  href="u_login.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} else {%>
-            <a type="button" href="u_mypage.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;" ></a>
+            <a type="button" href="u_mypage.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="main_page.jsp" style="font-size: 20px; font-family: 'Dovemayo-Medium';">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -75,10 +96,10 @@
     
       <div class="nav-scroller py-1 mb-2">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div style="margin: auto; display: inline;"><a href="main_page.jsp"><img src="./icon/home.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="note_main.jsp"><img src="./icon/doc.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="calendar.jsp"><img src="./icon/cal.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="community_main.jsp"><img src="./icon/com.png" style="width: 40px; height: 40px;"></a></div>
+          <div class="nav_div"><a href="main_page.jsp"><img class="nav_icon" src="./icon/home.png" ></a></div>
+          <div class="nav_div"><a href="note_main.jsp"><img class="nav_icon" src="./icon/doc.png"></a></div>
+          <div class="nav_div"><a href="calendar.jsp"><img class="nav_icon" src="./icon/cal.png"></a></div>
+          <div class="nav_div"><a href="community_main.jsp"><img class="nav_icon" src="./icon/com.png"></a></div>
         </nav>
       </div>
     </div>
@@ -90,9 +111,19 @@
     	ArrayList<CommunityDTO> list = dao.showBoard();
     	
     %>
-
-    <main style="  margin-left: 25%;">
     
+    	
+    	<div style="font-family: 'Dovemayo Medium'; margin-top: 2%; margin-left: 23%; margin-bottom: 2%
+    	">
+            <h2 style="font-family: 'Dovemayo Medium';  float: left;">
+            <img src="./icon/com_B.png" style="width: 40px; height: 40px;">    커뮤니티</h2>
+            <input class="btn btn-warning" onclick="location.href='community_write.jsp'" type="button" value="게시글 작성" style="font-family: 'Dovemayo Medium'; margin-left: 50%">
+         	
+         </div>
+         
+    <main style="float: left; margin-left: 20%">
+    
+    	
     	<%
     		for(int i = 0; i<list.size(); i++){
     			if(i % 2 == 0){ %>
@@ -121,8 +152,8 @@
 									<p class="card-text" style="font-family: 'Dovemayo Medium';"><%= list.get(i).getARTICLE_CONTENT()%></p>
 								  </div>
 								  <div class="card-body">
-								  	<span id="like_result"><%= list.get(i).getLIKE_NUM()%></span>
-								  	<input class="btn btn-danger" id="like_btn<%=i %>" type="button" value="♥" onclick="like()" style="font-family: 'Dovemayo Medium';">
+								  	<span id="like_result<%=list.get(i).getARTICLE_ID()%>"><%= list.get(i).getLIKE_NUM()%></span>
+								  	<input class="btn btn-danger like_btn" type="button" value="♥" onclick="like(this, <%=list.get(i).getARTICLE_ID() %>)" style="font-family: 'Dovemayo Medium';">
 								  </div>
 								  <%-- <div class="card-footer text-muted width: 40px; height: 40px;">
 			                                댓글 작성
@@ -138,53 +169,67 @@
 					  </div>
 					  </div>
 					</div>
+					
+					
+						
 		  <% 	
     		} %>
      
 	</main>  
      
-<script type="text/javascript">
-		function like(){
-			   
+	<script type="text/javascript">
+						
+						
 		
-		    if($('#like_btn').val()=="♥"){
-		       $.ajax({
-		          type : "post",
-		          data : {
-		             "board_num" : $('#board_num').html()
-		          },
-		          url : "../LikeService",
-		          dataType : "text",
-		          success : function(data){
-		             
-		             $('#like_result').html(data);
-		             $('#like_btn').val('♡ ');
-		          },
-		          error : function(){
-		             alert('실패!');
-		          }
-		       });
-		    }else{
-		       $.ajax({
-		          type : "post",
-		          data : {
-		             "board_num" : $('#board_num').html()
-		          },
-		          url : "../DislikeService",
-		          dataType : "text",
-		          success : function(data){
-		             
-		             $('#like_result').html(data);
-		             $('#like_btn').val('♥');
-		          },
-		          error : function(){
-		             alert('실패!');
-		          }
-		       });
-		    }
+	
+		function like(e, i){
+			
+			 if($(e).val()=="♥"){
+			    	
+			       $.ajax({
+			          type : "post",
+			          data : {
+			             "board_num" : i
+			          },
+			          url : "../LikeService",
+			          dataType : "text",
+			          success : function(data){
+			             console.log(data);
+			             $('#like_result'+i).html(data);
+			             $(e).val('♡ ');
+			          },
+			          error : function(){
+			             alert('실패!');
+			          }
+			       });
+			    }else{
+			       $.ajax({
+			          type : "post",
+			          data : {
+			             "board_num" : i
+			          },
+			          url : "../DislikeService",
+			          dataType : "text",
+			          success : function(data){
+			        	  console.log(data);
+			        	  $('#like_result'+i).html(data);
+			              $(e).val('♥');
+			          },
+			          error : function(){
+			             alert('실패!');
+			          }
+			       });
+			    }
+			
+		}
 
-   }
+		
+		
+   
+		
+	</script>
 
-</script>
+
+
 </body>
 </html>

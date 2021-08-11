@@ -50,7 +50,7 @@ public class MemDAO {
 		
 		try {
 
-			String sql = "INSERT INTO USERS VALUES(?,'1',?,?,?,?,'')";
+			String sql = "INSERT INTO USERS VALUES(?,'Basic',?,?,?,?,'')";
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, dto.getUSER_ID());
@@ -90,14 +90,14 @@ public class MemDAO {
 
 			if (rs.next()) {
 				String login_id = rs.getString(1);
-				String login_membership_id = rs.getString(2);
+				String login_membership_name = rs.getString(2);
 				String login_pw = rs.getString(3);
 				String login_name = rs.getString(4);
 				int login_age = rs.getInt(5);
 				String login_gender = rs.getString(6);
 				
 				
-				info = new MemDTO(login_id, login_membership_id, login_pw, login_name, login_age, login_gender);
+				info = new MemDTO(login_id, login_membership_name, login_pw, login_name, login_age, login_gender);
 			}
 
 		} catch (Exception e) {

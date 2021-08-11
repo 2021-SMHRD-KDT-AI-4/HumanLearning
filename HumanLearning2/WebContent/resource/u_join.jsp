@@ -28,6 +28,41 @@
 		.btn-warning:hover{
 			filter: brightness(0), invert(1);
 		}
+		.nav_div{
+	       margin: auto; 
+	       display: inline;
+       }
+       .nav_icon{
+	       width: 40px; 
+	       height: 40px;
+       }
+       .nav_con_icon{
+	       align: center; 
+	       width: 40px; 
+	       height: 40px;
+       }
+       .main_logo{
+	        font-size: 20px; 
+	        font-family: 'Dovemayo-Medium';
+       }
+       .join_div{
+       		margin-right: auto; 
+       		margin-left: auto;
+       }
+       .ca{
+       		font-family: 'Dovemayo Medium';
+       }
+       .join_p, .join_h1{
+       		text-align: center; 
+       		font-family: 'Dovemayo Medium';
+       }
+       .join_hr{
+       		width: 100%;
+       }
+       .ca_id{
+       		margin-bottom: 10px; 
+       		font-family: 'Dovemayo Medium';
+       }
 	</style>
     
     <!-- Custom styles for this template -->
@@ -39,22 +74,22 @@
 
 <body>
 	<!-- 로그인 정보 세션 저장 08.03 (조찬호)-->
-   <%
-      MemDTO info = (MemDTO)session.getAttribute("info");
-   %>
-   <div class="container">
+	<%
+		MemDTO info = (MemDTO)session.getAttribute("info");
+	%>
+	<div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
           <!-- 세션 정보 유무에 따라 로그인 / 마이페이지 버튼  버튼 08-03 조찬호 --> 
           <% if (info==null) {%>
-            <a type="button"  href="u_login.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;"></a>
+            <a type="button"  href="u_login.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} else {%>
-            <a type="button" href="u_mypage.jsp" ><img src="./icon/user_B.png" style="align: center; width: 40px; height: 40px;" ></a>
+            <a type="button" href="u_mypage.jsp" ><img class="nav_con_icon" src="./icon/user_B.png"></a>
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="main_page.jsp" style="font-size: 20px; font-family: 'Dovemayo-Medium';">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -73,10 +108,10 @@
     
       <div class="nav-scroller py-1 mb-2">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div style="margin: auto; display: inline;"><a href="main_page.jsp"><img src="./icon/home.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="note_main.jsp"><img src="./icon/doc.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="calendar.jsp"><img src="./icon/cal.png" style="width: 40px; height: 40px;"></a></div>
-          <div style="margin: auto; display: inline;"><a href="community_main.jsp"><img src="./icon/com.png" style="width: 40px; height: 40px;"></a></div>
+          <div class="nav_div"><a href="main_page.jsp"><img class="nav_icon" src="./icon/home.png" ></a></div>
+          <div class="nav_div"><a href="note_main.jsp"><img class="nav_icon" src="./icon/doc.png"></a></div>
+          <div class="nav_div"><a href="calendar.jsp"><img class="nav_icon" src="./icon/cal.png"></a></div>
+          <div class="nav_div"><a href="community_main.jsp"><img class="nav_icon" src="./icon/com.png"></a></div>
         </nav>
       </div>
     </div>
@@ -87,54 +122,51 @@
     <br>
     <main class="container">
       <div class="card bg-light mb-3" >
-        <div class="col-md-6 px-0" style=" margin-right: auto; margin-left: auto;">
+        <div class="col-md-6 px-0 join_div">
         <!--   <form> -->
 			<fieldset>
 			  <legend>
-				<div class="form-group" style="font-family: 'Dovemayo Medium';"></div>
+				<div class="form-group ca"></div>
 				<br>
-				<h1 class="display-4" style="text-align: center; font-family: 'Dovemayo Medium';">회원가입</h1>
-				<p class="lead" style="text-align: center; font-family: 'Dovemayo Medium';">회원가입에 필요한 정보를 작성해주세요.</p>
-				<hr class="card bg-light mb-3" style="width: 100%;">
+				<h1 class="display-4 join_h1">회원가입</h1>
+				<p class="lead join_p">회원가입에 필요한 정보를 작성해주세요.</p>
+				<hr class="card bg-light mb-3 join_hr">
 			<!-- 08.03 회원가입 기능 추가 ( 조찬호 ) -->
-				<form  action ="../Joinserv"  method="post"  class="needs-validation" style=" font-family: 'Dovemayo Medium';  ">
-				  <div class="row g-3" style="font-family: 'Dovemayo Medium';">
+				<form  action ="../Joinserv"  method="post"  class="needs-validation ca">
+				  <div class="row g-3 ca">
 					<div class="col-12">
 					  <label for="ID" class="form-label">아이디</label>
-				
-                      <input type="text" class="form-control" placeholder="아이디를 입력하세요." name="ID"  style="margin-bottom: 10px; font-family: 'Dovemayo Medium';">
-                      
-                       <input id="ID_btn" type="button" class="btn btn-warning" value="ID중복 체크" onclick = "idCheck()" style="font-family: 'Dovemayo Medium';"> 
-
+                      <input type="text" class="form-control ca_id" placeholder="아이디를 입력하세요." name="ID">
+						<input id="ID_btn" type="button" class="btn btn-warning ca" value="ID중복 체크" onclick = "idCheck()"> 
 					</div>
               
-					<div class="col-12" style="font-family: 'Dovemayo Medium';">
+					<div class="col-12 ca">
 					  <label for="pw" class="form-label">비밀번호</label>
 					  <div class="input-group has-validation">
-						<input type="password" class="form-control" placeholder="비밀번호를 입력하세요." name="PW" style="font-family: 'Dovemayo Medium';">
+						<input type="password" class="form-control ca" placeholder="비밀번호를 입력하세요." name="PW">
                       </div>
 					</div>
 					
-					<div class="col-12" style="font-family: 'Dovemayo Medium';">
+					<div class="col-12 ca">
 					  <label for="name" class="form-label">이름</label>
-					  <input type="text" class="form-control" placeholder="이름을 입력하세요." name="NAME" style="font-family: 'Dovemayo Medium';">
+					  <input type="text" class="form-control ca" placeholder="이름을 입력하세요." name="NAME">
 					</div>
               
-					<div class="col-12" style="font-family: 'Dovemayo Medium';">
-<!-- 오타수정 08.03 조찬호 ( genader ->> gender -->
-					  <label for="gender" class="form-label" >성별</label>
-					  <select class="form-select" name="GENDER" required style="font-family: 'Dovemayo Medium';">
-					    		<option value="Choose" style="font-family: 'Dovemayo Medium';">여자</option>
-                                <option value="Choose" style="font-family: 'Dovemayo Medium';">남자</option>
+					<div class="col-12 ca">
+					<!-- 오타수정 08.03 조찬호 ( genader ->> gender -->
+					  <label for="gender" class="form-label ca" >성별</label>
+					  <select class="form-select ca" name="GENDER" required>
+					    		<option class="ca" value="Choose">여자</option>
+                                <option class="ca" value="Choose">남자</option>
 					  </select>
 					</div>
               
-					<div class="col-12" style="font-family: 'Dovemayo Medium';">
-					  <label for="age" class="form-label">나이</label>
-					  <input type="text" class="form-control" placeholder="나이를 입력하세요." name="AGE" style="font-family: 'Dovemayo-Medium';">
+					<div class="col-12 ca">
+					  <label for="age" class="form-label ca">나이</label>
+					  <input type="text" class="form-control ca" placeholder="나이를 입력하세요." name="AGE">
 					  <br>
 					</div>
-					<input type="submit"  class="w-100 btn btn-warning btn-lg"  style="font-family: 'Dovemayo Medium';" />
+					<input type="submit" class="w-100 btn btn-warning btn-lg ca"/>
 				  </div>
                   <br>
                   <br>

@@ -9,8 +9,6 @@ public class MemDTO {
 	private int USER_AGE;
 	private String USER_GENDER;
 	
-	
-	
 	public String getUSER_ID() {
 		return USER_ID;
 	}

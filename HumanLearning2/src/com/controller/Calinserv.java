@@ -18,12 +18,15 @@ public class Calinserv extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
+		
 	    MemDTO info = (MemDTO) session.getAttribute("info");
-	    
+	    request.setCharacterEncoding("utf-8");
 	    String user_id =info.getUSER_ID();
 	    String cal_date = request.getParameter("cal_date");
 	    String cal_comment = request.getParameter("cal_comment");
 		
+	    System.out.println(cal_comment);
 		CalDTO dto = new CalDTO(user_id, cal_date, cal_comment);
 		CalDAO dao = new CalDAO();
 		int cnt = dao.calInput(dto);

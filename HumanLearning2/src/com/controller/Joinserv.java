@@ -29,7 +29,7 @@ public class Joinserv extends HttpServlet {
 		int age = (Integer.parseInt(request.getParameter("AGE")));
 		
 	
-		MemDTO dto = new MemDTO(id, name, pw, age, gender);
+		MemDTO dto = new MemDTO(id, pw, name, age, gender);
 		MemDAO dao = new MemDAO();
 		int cnt = dao.join(dto);
 		int info = 0;

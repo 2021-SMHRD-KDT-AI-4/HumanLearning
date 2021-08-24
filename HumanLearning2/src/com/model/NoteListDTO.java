@@ -8,9 +8,12 @@ public class NoteListDTO {
 	private int play_time;
 	private String upload_time;
 	private String video_memo;
+	private String video_summary;
 	
+
+
 	public NoteListDTO(int video_id, String user_id, int note_id, String video_filename, int play_time,
-			String upload_time, String video_memo) {
+			String upload_time, String video_memo, String video_summary) {
 	
 		this.video_id = video_id;
 		this.user_id = user_id;
@@ -19,6 +22,7 @@ public class NoteListDTO {
 		this.play_time = play_time;
 		this.upload_time = upload_time;
 		this.video_memo = video_memo;
+		this.video_summary = video_summary;
 	}
 
 	public int getVideo_id() {
@@ -75,5 +79,13 @@ public class NoteListDTO {
 
 	public void setVideo_memo(String video_memo) {
 		this.video_memo = video_memo;
+	}
+	
+	public String getVideo_summary() {
+		return video_summary;
+	}
+
+	public void setVideo_summary(String video_summary) {
+		this.video_summary = video_summary;
 	}
 }

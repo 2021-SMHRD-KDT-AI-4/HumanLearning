@@ -1,9 +1,11 @@
+<%@page import="com.model.KeywordDAO"%>
+<%@page import="com.model.KeywordDTO"%>
+<%@page import="com.model.NoteCategoryDTO"%>
+<%@page import="com.model.NoteListDAO"%>
+<%@page import="com.model.NoteListDTO"%>
 <%@page import="com.model.MemDTO"%>
-<%@page import="com.NoteListDTO"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="DTO.NoteClassDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.NoteListDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -75,30 +77,30 @@
 </head>
 <body>
 	 <%
-	 String id;
-	 MemDTO info = (MemDTO)session.getAttribute("info");
-     if(info == null){
-    	 response.sendRedirect("u_login.jsp");
-    	 id  = "";
-     } else {
-    	 id = info.getUSER_ID();
-     }
+	 	String id="필라이트";
+	 	 MemDTO info = (MemDTO)session.getAttribute("info");
+	      if(info == null){
+	     	 response.sendRedirect("u_login.jsp");
+	     	 id  = "";
+	      } else {
+	     	 id = info.getUSER_ID();
+	      }
 
- 
-	response.setContentType("text/html;");
-	NoteListDAO dao = new NoteListDAO();
-	ArrayList<NoteClassDTO> cinfo = new ArrayList<NoteClassDTO>();
-	HashMap<Integer,ArrayList<NoteListDTO>> map = new HashMap<Integer,ArrayList<NoteListDTO>>();
-	cinfo= dao.classlist(id);
-	
-	for(int i = 0; i<cinfo.size() ;i++){
-		ArrayList<NoteListDTO> ninfo = new ArrayList<NoteListDTO>();		
-		int class_id = cinfo.get(i).getClass_id();
-		ninfo = dao.notelist(id,class_id);	
-		System.out.println("upload : "+ninfo.get(0).getUpload_time());
-		map.put(class_id,ninfo);
-	}
-%>
+	  
+	 	response.setContentType("text/html;");
+	 	NoteListDAO dao = new NoteListDAO();
+	 	ArrayList<NoteCategoryDTO> cinfo = new ArrayList<NoteCategoryDTO>();
+	 	HashMap<Integer,ArrayList<NoteListDTO>> map = new HashMap<Integer,ArrayList<NoteListDTO>>();
+	 	cinfo= dao.classlist(id);
+	 	
+	 	for(int i = 0; i<cinfo.size() ;i++){
+	 		ArrayList<NoteListDTO> ninfo = new ArrayList<NoteListDTO>();		
+	 		int class_id = cinfo.get(i).getClass_id();
+	 		ninfo = dao.notelist(id,class_id);	
+	 		map.put(class_id,ninfo);
+	 	}
+	 	System.out.print(id);
+	 %>
 
 	<!--  네비바 시작 -->
 	<div class="container">
@@ -113,7 +115,7 @@
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp"><img class="nav_con_icon" src="./img/title_logo3.png" style="width: 200px; height: 80px;"></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -186,21 +188,35 @@
                         <table class="table table-hover acc">
                             <thead>
                               <tr>
-                                <th scope="col">노트 이름</th>
                                 <th scope="col">강의 영상제목</th>
+                                <th scope="col">키워드</th>
                                 <th scope="col">노트 작성일</th>
                                 <th scope="col">노트 삭제</th>
                               </tr>
                             </thead>
                             <tbody>
 
-                             <% for(int i=0;i<map.get(cinfo.get(j).getClass_id()).size();i++){ %>
+                             <% for(int i=0;i<map.get(cinfo.get(j).getClass_id()).size();i++){
+                            	 KeywordDAO keywordDAO = new KeywordDAO();
+                            	 ArrayList<KeywordDTO> keywordDTOs = new ArrayList<KeywordDTO>();
+                            	 keywordDTOs=keywordDAO.select_keywords(  notes.get(i).getVideo_id()  );
+                            	 int kw_size=keywordDTOs.size();
+                            	 String summary=notes.get(i).getVideo_summary().replace("\n", "<br>");
+                            	 %>
                             	     
-	                              <tr class="table-warning">
-	                                <th scope="row"><!--노트이름  --> <%= notes.get(i).getVideo_id() %></th>
-	                                <td><!--파일이름  --> <%= notes.get(i).getVideo_filename() %> </td>
-	                                <td><!--날짜  --> <%= notes.get(i).getUpload_time() %></td>
-	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><button class="btn rounded btn-outline-danger">X</button></a></td> 
+	                              	<tr class="table-warning" >
+	                                <td onClick="location.href='note_editor.jsp?video_id=<%=notes.get(i).getVideo_id()  %>'"><!--파일이름  --> <%= notes.get(i).getVideo_filename().split(".mp4")[0] %> </td>
+	                                <td><% for(int k = 0;k<kw_size;k++){ %>
+	                                	<%=keywordDTOs.get(k).getKeyword()+" " %>
+	                                	<%} %>
+	                                </td>
+	                                <td><!--날짜  --> <%= notes.get(i).getUpload_time().split(" ")[0] %></td>
+	                                <td><a href="../NoteDeleteService?num=<%= notes.get(i).getVideo_id() %>"><button class="btn rounded btn-outline-danger">X</button></a></td>
+	                                </tr>
+	                                <tr> 
+	                                <td colspan="4"> <details > <summary>요약</summary><div><%= summary %> </div></details> </td>
+	                                
+	                                </tr>
 	                      <%       
                             } %>
                             </tbody>
@@ -216,12 +232,22 @@
 	
 </body>
 <script src="./js/jquery-3.6.0.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script> 
-<!-- <script>
-alert("click");
-</script>
- -->
+
 <script type="text/javascript">
+function preventClick(e){
+	e.preventDefault()
+}
+function btn(){
+	alert('버튼이 클릭되었습니다');
+	
+	}
+	
+$("#dfd").on("click", function(e) {
+	e.preventDefault();
+
+});
 
 
 </script>

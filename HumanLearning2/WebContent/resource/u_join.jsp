@@ -9,7 +9,7 @@
 <head>
 	
 	<meta charset="UTF-8">
-	<title>JOIN</title>
+	<title>FWE | JOIN</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<style>
 		.bd-placeholder-img {
@@ -63,6 +63,10 @@
        		margin-bottom: 10px; 
        		font-family: 'Dovemayo Medium';
        }
+       .footer_div{
+       		margin-top: 20%;
+       		margin-bottom: 50px
+       }
 	</style>
     
     <!-- Custom styles for this template -->
@@ -89,7 +93,7 @@
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">´Ï°¡½áºÁ</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp"><img class="nav_con_icon" src="./img/title_logo3.png" style="width: 200px; height: 80px;"></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -176,7 +180,11 @@
           <!-- </form> -->
         </div>
       </div>
-	</main>       
+	</main>
+	<footer class="text-center footer_div">
+   		<h3>FeelWritE</h3>
+   		<p>FeelWritE's Homepage is powered by <span class = "text-warning">HumanLearning</span> / Designed by <span class = "text-warning">HumanLearning</span></p>
+   	</footer>    
 	<script src="form-validation.js"></script>
 	<script src="./js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">

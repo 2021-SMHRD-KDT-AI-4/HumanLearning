@@ -67,9 +67,10 @@ public class NoteListDAO {
 					int play_time = rs.getInt(5);
 					String upload_time = rs.getString(6);
 					String video_memo = rs.getString(7);
+					String video_summary = rs.getNString(8);
 					
 					System.out.println(video_id + user_id + note_id + video_filename+ play_time+ upload_time+ video_memo);
-	          	    NoteListDTO dto = new NoteListDTO(video_id, user_id, note_id, video_filename, play_time, upload_time, video_memo);
+	          	    NoteListDTO dto = new NoteListDTO(video_id, user_id, note_id, video_filename, play_time, upload_time, video_memo, video_summary);
 	          	    System.out.println(dto.getNote_id()+dto.getUser_id()+dto.getNote_id());
 	          	    list.add(dto);
 	          	    
@@ -108,8 +109,8 @@ public class NoteListDAO {
 	}
 	
 	
-	public ArrayList<NoteClassDTO> classlist(String id) {
-		 ArrayList<NoteClassDTO> list = new ArrayList<NoteClassDTO>();
+	public ArrayList<NoteCategoryDTO> classlist(String id) {
+		 ArrayList<NoteCategoryDTO> list = new ArrayList<NoteCategoryDTO>();
 		
 			try {
 				getConnection();
@@ -125,7 +126,7 @@ public class NoteListDAO {
 					String user_id = rs.getString(2);
 					String video_filename = rs.getString(3);
 
-					NoteClassDTO dto = new NoteClassDTO(note_id, user_id, video_filename);
+					NoteCategoryDTO dto = new NoteCategoryDTO(note_id, user_id, video_filename);
 	          	    list.add(dto);
 				     
 				}		
@@ -134,7 +135,6 @@ public class NoteListDAO {
 			}finally {
 				getClose();
 			}
-		
 			return list;
 		}
 }

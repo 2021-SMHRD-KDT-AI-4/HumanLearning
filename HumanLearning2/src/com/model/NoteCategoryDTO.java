@@ -1,12 +1,12 @@
 package com.model;
 
-public class NoteClassDTO {
+public class NoteCategoryDTO {
 
 	int class_id;
 	String user_id;
 	String class_name;
 	
-	public NoteClassDTO(int class_id, String user_id, String class_name) {
+	public NoteCategoryDTO(int class_id, String user_id, String class_name) {
 		super();
 		this.class_id = class_id;
 		this.user_id = user_id;

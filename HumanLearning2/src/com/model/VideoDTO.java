@@ -9,6 +9,22 @@ public class VideoDTO {
 	private int PLAY_TIME; 
 	private String UPLOAD_TIME; 
 	private String VIDEO_MEMO;
+	private String VIDEO_SUMMARY;
+	
+	
+	public VideoDTO(int vIDEO_ID, String uSER_ID, int nOTE_ID, String vIDEO_FILENAME, int pLAY_TIME, String uPLOAD_TIME,
+			String vIDEO_MEMO, String vIDEO_SUMMARY) {
+		super();
+		VIDEO_ID = vIDEO_ID;
+		USER_ID = uSER_ID;
+		NOTE_ID = nOTE_ID;
+		VIDEO_FILENAME = vIDEO_FILENAME;
+		PLAY_TIME = pLAY_TIME;
+		UPLOAD_TIME = uPLOAD_TIME;
+		VIDEO_MEMO = vIDEO_MEMO;
+		VIDEO_SUMMARY = vIDEO_SUMMARY;
+	}
+	
 	public int getVIDEO_ID() {
 		return VIDEO_ID;
 	}
@@ -51,18 +67,13 @@ public class VideoDTO {
 	public void setVIDEO_MEMO(String vIDEO_MEMO) {
 		VIDEO_MEMO = vIDEO_MEMO;
 	}
+	public String getVIDEO_SUMMARY() {
+		return VIDEO_SUMMARY;
+	}
+	public void setVIDEO_SUMMARY(String vIDEO_SUMMARY) {
+		VIDEO_SUMMARY = vIDEO_SUMMARY;
+	}
 	
-	public VideoDTO(int vIDEO_ID, String uSER_ID, int nOTE_ID, String vIDEO_FILENAME, int pLAY_TIME, String uPLOAD_TIME,
-			String vIDEO_MEMO) {
-		super();
-		VIDEO_ID = vIDEO_ID;
-		USER_ID = uSER_ID;
-		NOTE_ID = nOTE_ID;
-		VIDEO_FILENAME = vIDEO_FILENAME;
-		PLAY_TIME = pLAY_TIME;
-		UPLOAD_TIME = uPLOAD_TIME;
-		VIDEO_MEMO = vIDEO_MEMO;
-	} 
-
+	
 	
 }

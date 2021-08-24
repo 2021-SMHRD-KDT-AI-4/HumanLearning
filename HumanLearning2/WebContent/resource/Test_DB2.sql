@@ -1,1 +1,3 @@
 SELECT * FROM NOTE_CATEGORIES; 
+
+UPDATE VIDEOS SET VIDEO_MEMO='sssfdwaefasfsss' WHERE video_id='21';

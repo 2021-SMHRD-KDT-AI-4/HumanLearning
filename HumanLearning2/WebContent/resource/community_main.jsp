@@ -10,7 +10,7 @@
 <head>
 	
 	<meta charset="UTF-8">
-	<title>COMMUNITY</title>
+	<title>FWE | COMMUNITY</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<style>
 	  	.bd-placeholder-img {
@@ -46,8 +46,10 @@
 	        font-size: 20px; 
 	        font-family: 'Dovemayo-Medium';
        }
-
-	  	
+       .footer_div{
+       		margin-top: 20%;
+       		margin-bottom: 50px
+       }
 	</style>
 	
 	<!-- Custom styles for this template -->
@@ -56,8 +58,6 @@
 	<link href="blog.css" rel="stylesheet">
 	<script src="js/jquery-3.6.0.min.js"></script>
 </head>
-
-
 <body>
 	<!-- 로그인 정보 세션 저장 08.03 (조찬호)-->
 	<%
@@ -77,7 +77,7 @@
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp"><img class="nav_con_icon" src="./img/title_logo3.png" style="width: 200px; height: 80px;"></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -111,19 +111,13 @@
     	ArrayList<CommunityDTO> list = dao.showBoard();
     	
     %>
-    
-    	
-    	<div style="font-family: 'Dovemayo Medium'; margin-top: 2%; margin-left: 23%; margin-bottom: 2%
-    	">
+    	<div style="font-family: 'Dovemayo Medium'; margin-top: 2%; margin-left: 23%; margin-bottom: 2%">
             <h2 style="font-family: 'Dovemayo Medium';  float: left;">
             <img src="./icon/com_B.png" style="width: 40px; height: 40px;">    커뮤니티</h2>
-            <input class="btn btn-warning" onclick="location.href='community_write.jsp'" type="button" value="게시글 작성" style="font-family: 'Dovemayo Medium'; margin-left: 50%">
-         	
+            <input class="btn btn-warning" onclick="location.href='community_write.jsp'" type="button" value="게시글 작성" style="font-family: 'Dovemayo Medium'; margin-left: 50%">         	
          </div>
          
     <main style="float: left; margin-left: 20%">
-    
-    	
     	<%
     		for(int i = 0; i<list.size(); i++){
     			if(i % 2 == 0){ %>
@@ -140,13 +134,14 @@
 							  <div class="card mb-3 row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
 								<div class="col p-4 d-flex flex-column position-static"  >
 								  <h3 class="card-header card-text width: 40px; height: 40px;" style="font-family: 'Dovemayo Medium';">
-								  	<span id="board_num"><%= list.get(i).getARTICLE_ID()%></span><%= list.get(i).getUSER_ID()%></h3>
+								  	<span id="board_num"><%= list.get(i).getARTICLE_ID()%></span>) <%= list.get(i).getUSER_ID()%></h3>
 								  <div class="card-body">
 									<h5 class="card-title" style="font-family: 'Dovemayo Medium';"><%= list.get(i).getARTICLE_TITLE() %></h5>
 									<h6 class="card-subtitle text-muted" style="font-family: 'Dovemayo Medium';"><%= list.get(i).getPOST_TIME()%></h6>
 								  </div>
 								  <div style="width: 400px; height: 500px; overflow: hidden; display: block; margin: 0 auto;">
-									<img src="../img/<%= list.get(i).getIMG_PATH()%>" style="object-fit: contain; display: block; margin: 0 auto;">
+									<!-- 8.16일 수정 -->
+									<img src="./community_img/<%= list.get(i).getIMG_PATH()%>" style="max-width: 100%; object-fit: contain; display: block; margin: 0 auto;">
 									</div>
 								  <div class="card-body">
 									<p class="card-text" style="font-family: 'Dovemayo Medium';"><%= list.get(i).getARTICLE_CONTENT()%></p>
@@ -166,16 +161,18 @@
 							</legend>
 						  </fieldset>
 						</form>
+						
 					  </div>
 					  </div>
 					</div>
-					
-					
-						
 		  <% 	
     		} %>
      
 	</main>  
+	<footer class="text-center footer_div">
+   		<h3>FeelWritE</h3>
+   		<p>FeelWritE's Homepage is powered by <span class = "text-warning">HumanLearning</span> / Designed by <span class = "text-warning">HumanLearning</span></p>
+   	</footer>
      
 	<script type="text/javascript">
 						
@@ -222,11 +219,6 @@
 			    }
 			
 		}
-
-		
-		
-   
-		
 	</script>
 
 

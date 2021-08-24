@@ -3,7 +3,7 @@
     pageEncoding="EUC-KR"%>
     
 <%
-   ConnectDB connectDB = ConnectDB.getInstance();
+   connectDB connectDB = ConnectDB.getInstance();
 	
    String id = request.getParameter("id");
    String pw = request.getParameter("pw");

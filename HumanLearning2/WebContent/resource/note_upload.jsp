@@ -1,4 +1,10 @@
 
+<%@page import="com.model.NoteCategoryDAO"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="com.model.NoteCategoryDTO"%>
+<%@page import="com.model.NoteListDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.NoteListDAO"%>
 <%@page import="com.model.MemDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -54,6 +60,13 @@
 	          font-family: 'Dovemayo Medium'; 
 	          position: fixed;
           }
+          .video_file2{
+	          font-family: 'Dovemayo Medium';
+	          float: left; 
+	          position: relative;
+	          top: auto; 
+	          width : 60%;
+          }
           .upload_btn{
 	          font-family: 'Dovemayo Medium'; 
 	          position: absolute; 
@@ -106,7 +119,17 @@
 		<!--  네비바 시작 -->
     <!-- 로그인 정보 세션 저장 08.03 (조찬호)-->
 	<%
-		MemDTO info = (MemDTO)session.getAttribute("info");	
+		MemDTO info = (MemDTO)session.getAttribute("info");
+	        String id;
+        	NoteCategoryDAO noteCategoryDAO = new NoteCategoryDAO();
+	       	NoteListDAO noteListDAO = new NoteListDAO();
+	        ArrayList<NoteCategoryDTO> noteClassDTOs = new ArrayList<NoteCategoryDTO>();
+	        if(info == null){
+	        	id = "a";
+	        } else {
+	        	id = info.getUSER_ID();
+	        }
+	        noteClassDTOs=noteListDAO.classlist(id);
 	%>
 	<div class="container">
       <header class="blog-header py-3">
@@ -120,11 +143,10 @@
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp"><img class="nav_con_icon" src="./img/title_logo3.png" style="width: 200px; height: 80px;"></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
-              <!-- <img src = "./icon/dot_B.png" style="width: 25px; height: 25px; margin-right: 20px;"> -->
             </a>
             <form>
             <% if (info==null) {%>
@@ -155,21 +177,41 @@
         <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" >
           <div class="col-md-6 px-0 new_note_div">
             <h1 class="display-4 fst-italic new_note" >새노트 생성</h1>
-            <br>
-            <br>
-            <form class="note_form" action="" method="POST" >
+            <div>
+				<p class="lead my-3 input_ca_ke" style="">생성할 노트의 카테고리가 없다면  카테고리를 생성해 주세요 </p>
+            </div>
+            <div style="">
+            	<input type="text" id="category" name="category" class="form-control category" placeholder="생성할 카테고리명 입력"> 
+               
+            </div>
+            <div>
+            
+             <input type="button" id="add_cat_btn" value="카테고리 생성" class="btn btn-warning upload_btn" style="margin-left: -120px;"></div>
+                     
+                     
+        		 	<form id="note_form" class="note_form" name="frmName" method="post" enctype="multipart/form-data" action="loading_page.jsp">
+					
             	<div>
+            	<br>
+            	<br>
+            	<hr>
                     <p class="lead my-3 input_ca_ke">생성할 노트의 카테고리와 키워드를 입력하세요</p>
-                    <input type="text" class="form-control category" placeholder="카테고리 입력" >
-                    <input type="text" class="form-control keyword" placeholder="키워드 입력" >
-                    <input type="submit" value="입력" class="btn btn-warning ca_btn">
+                    <input type="hidden" name="user_id" value=<%= id  %> class="form-control category">
+                   <!--  <input type="text" name="note_id" class="form-control category" placeholder="카테고리 입력" > --> 
+                    <select id="note_id" name="note_id" class="form-control category" >
+                    <% for(int i=0;i<noteClassDTOs.size();i++){ %>
+                    	<option value=<%= noteClassDTOs.get(i).getClass_id() %>> <%= noteClassDTOs.get(i).getClass_name() %> </option>
+                    	<%} %>
+                    </select>
+                    <input type="text" id="keyword" name="keyword" class="form-control keyword" placeholder="키워드 입력" style="margin-left: 120px;">
+                   <!--  <input type="submit" value="입력" class="btn btn-warning ca_btn"> --> 
                 </div>
                 <br>
                 <br>
                 <div>
                     <p class="lead my-3 video_up">영상 파일 업로드</p>
-                    <input type="file" class="form-control video_file">
-                    <input type="submit" value="노트 생성" class="btn btn-warning upload_btn" >
+                    <input type="file" id="uploadFile" name="uploadFile" class="form-control video_file2">
+                    <input type="submit" id="sendValue" value="노트 생성" class="btn btn-warning upload_btn" style="margin-left: -90px;" >
                 </div>
                 <br>
                 <br>
@@ -179,4 +221,110 @@
     </main>        
 	
 </body>
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script >
+if(<%= (info!=null) %>){
+	var u_id = "<%=info.getUSER_ID() %>";
+} else {
+	var u_id = "a";
+}
+//카테고리 추가
+$("#add_cat_btn").click(function (event) {         
+     
+    		var c_name = $("#category").val();
+		    $.ajax({             
+		    	type: "POST",
+				url: "..//AddCategoryService",  
+				cache : false,
+				data: {
+					"u_id" : u_id,
+					"c_name" : c_name
+				},
+				dataType : "text",              
+		        success: function (data) {
+		        	alert("카테고리가 생성되었습니다.")
+		        	$("#note_id").append("<option value="+data+">"+c_name+" </option>");
+		           },          
+		        error: function (e) {  
+		        	
+		            alert("fail");      
+		         }     
+			});
+});
+
+
+//파일 업로드 및 플라스크 연동
+$("#sendValue").click(function (event) {         
+	//preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음 
+	event.preventDefault();          
+    // Get form         
+    var form = $('#note_form')[0];  	    
+    // Create an FormData object          
+    var data = new FormData(form);  	   
+    // disabled the submit button         
+    $("#sendValue").prop("disabled", true);   
+    alert("업로드 후 약 10분의 시간이 소요됩니다. 새노트는 알림으로 확인해주세요!")
+    $.ajax({             
+    	type: "POST",          
+        enctype: 'multipart/form-data',  
+        url: "../VideoUploadService",        
+        data: data,          
+        processData: false,    
+        contentType: false,      
+        cache: false,           
+        timeout: 600000,       
+        success: function (data) { 
+            
+        },          
+        error: function (e) {  
+
+            alert("fail");      
+         }     
+	});  
+});
+
+//새노트 갱신 확인
+if(<%= (info!=null) %>){
+	var currentNotes = -1;
+	var u_id = "<%=info.getUSER_ID() %>";
+	$.ajax ({
+		type: "POST",
+		url: "../ConfirmNoteService",  
+		cache : false,
+		data: {
+			"u_id" : u_id
+		},
+		dataType : "text",
+		success : function (data) { // ----- (2)
+			currentNotes=data;
+		}
+	});
+	$(function() {
+		timer = setInterval( function () {
+			//----------------------------------------------------------------------------------
+			$.ajax ({
+				type: "POST",
+				url: "../ConfirmNoteService",  
+				cache : false,
+				
+				data: {
+					"u_id" : u_id
+				},
+				dataType : "text",
+				success : function (data) { // ----- (2)			
+					if (currentNotes<data){
+						alert("새 노트 추가됨");
+						currentNotes=data;
+					} else if(currentNotes>data){
+						currentNotes=data;
+					}			
+				}
+			});
+			//----------------------------------------------------------------------------------
+		}, 5000); // 10초에 한번씩 받아온다.
+});
+}
+
+
+</script>
 </html>

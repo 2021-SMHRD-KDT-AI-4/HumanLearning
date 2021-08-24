@@ -43,12 +43,12 @@ public class CommunityDAO {
 		}
 	}
 	
-	//°Ô½Ã±Û Ãß°¡
+	//ï¿½Ô½Ã±ï¿½ ï¿½ß°ï¿½
 	public int insert(CommunityDTO dto) {
 		int cnt = 0;
 		try {
 			getConnection();
-			String sql = "INSERT INTO BOARDS values (BOARDS_SEQ.NEXTVAL, ?, SYSDATE,?, ?, ?, 0,0)";
+			String sql = "INSERT INTO BOARDS values (BOARDS_SEQ.NEXTVAL, ?, SYSDATE,?, ?, ?, 0)";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setNString(1, dto.getUSER_ID());
@@ -66,7 +66,7 @@ public class CommunityDAO {
 		return cnt;
 	}
 
-	//°Ô½Ã±Û ¿À¸§Â÷¼ø
+	//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ArrayList<CommunityDTO> showBoard() {
 		ArrayList<CommunityDTO> list = new ArrayList<CommunityDTO>();
 		

@@ -4,13 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-
-
-</script>
-	
 	<meta charset="UTF-8">
-        <title>My_page</title>
+        <title>FWE | MYPAGE</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <style>
           .bd-placeholder-img {
@@ -69,6 +64,10 @@
 	       .half_background {
 				background: linear-gradient(to top, yellow 50%, transparent 50%);
 			}
+			.footer_div{
+             margin-top: 20%;
+             margin-bottom: 50px
+       		}
         </style>
     
         
@@ -95,7 +94,7 @@
             <%} %>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp">니가써봐</a>
+            <a class="blog-header-logo text-dark main_logo" href="main_page.jsp"><img class="nav_con_icon" src="./img/title_logo3.png" style="width: 200px; height: 80px;"></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -164,7 +163,7 @@
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
                     <div class="accordion-body">
-                        <strong>멤머십 설명</strong>
+                        <strong>멤버십 설명</strong>
                     </div>
                   </div>
                 </div>
@@ -197,11 +196,17 @@
               </div>
        
 	    </main>
+	    <script src="js/bootstrap.js"></script>
 	    <script type="text/javascript">
 	    	function mem() {
 	    	 	alert("멤버십 시스템 준비중입니다.");
 	    	 }
 	    </script>
+	    <footer class="text-center footer_div">
+   			<h3>FeelWritE</h3>
+   			<p>FeelWritE's Homepage is powered by <span class = "text-warning">HumanLearning</span> / Designed by <span class = "text-warning">HumanLearning</span></p>
+   		</footer>
 	</body>
-	<script src="js/bootstrap.js"></script>
+	<script src="./js/jquery-3.6.0.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
 </html>

@@ -23,8 +23,8 @@ public class CommunityService_W extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
-		//img경로 가져오기
-		String savePath = request.getServletContext().getRealPath("img");
+		//매번 웹컨텐트의 아래의 community_img의 폴더의 절대 경로 바꿔야함
+		String savePath = "C:/Users/SMHRD/git/HumanLearning/HumanLearning2/WebContent/resource/community_img";
 		System.out.println(savePath);
 		
 		//이미지 크기 지정

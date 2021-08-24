@@ -1,12 +1,10 @@
 package com.model;
 
 public class CalDTO {
-
 	private int cal_id;
 	private String user_id;
 	private String cal_date;
 	private String cal_comment;
-	
 	
 	public CalDTO(int cal_id, String user_id, String cal_date, String cal_comment) {
 		super();
@@ -21,9 +19,14 @@ public class CalDTO {
 		this.cal_comment = cal_comment;
 	}
 	
-	public CalDTO(String cal_date, String cal_comment) {
+	public CalDTO(int cal_id) {
 		super();
-		this.cal_date = cal_date;
+		this.cal_id = cal_id;
+	}
+	
+	public CalDTO(String user_id, String cal_comment) {
+		super();
+		this.user_id = user_id;
 		this.cal_comment = cal_comment;
 	}
 
